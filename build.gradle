@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'com.blueeaglecreditunion.script'
+version '1.0-SNAPSHOT'
+
+//point to the main file in java project.
+ext.projectName = "Main"
+
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClassName = "com.blueeaglecreditunion.script.$projectName"
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.archivesBaseName,
+                'Main-Class': "com.blueeaglecreditunion.script.$projectName"
+        )
+    }
+
+    //includes the jar files of third party libraries
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile files('lib/corelation_script.jar')
+    compile files('lib/db2jcc.jar')
+
+    // https://mvnrepository.com/artifact/com.opencsv/opencsv
+    compile group: 'com.opencsv', name: 'opencsv', version: '5.2'
+    // adds apache POI https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+
+}
