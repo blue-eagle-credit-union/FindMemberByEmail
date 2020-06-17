@@ -1,2 +1,3 @@
 # Project exclude paths
 /.gradle/
+/src/main/java/com/blueeaglecreditunion/script/myPassword.java
